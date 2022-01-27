@@ -1,3 +1,5 @@
+// compress a string
+
 let testString = 'aaaabbbcccccd';
 
 function compressString(strToCompress){
@@ -18,10 +20,15 @@ function compressString(strToCompress){
 let result = compressString(testString)
 console.log(result)
 
+// print random number
+
 let randomNumber = Math.random() * 6;
 randomNumber = Math.round(randomNumber);
 
 console.log(randomNumber);
+
+
+// reverse a string
 
 function reverseString(str){
     var strArr = str.split("") 
@@ -31,6 +38,9 @@ function reverseString(str){
 }
 
 console.log(reverseString("hello")); // olleh
+
+
+// FizzBuzz
 
 for (let i=1; i<=100; i+=1){
     if (i % 3 === 0 && i % 5 == 0) {
@@ -46,6 +56,8 @@ for (let i=1; i<=100; i+=1){
         console.log(i)
     }
 }
+
+// Buy or sell
 
 // delcare the array
 let stockMarketPrices = [8,4,30,1,2,3];
@@ -70,3 +82,15 @@ function buyOrSell() {
 
 	return profit;
 }
+
+// Leetcode 1. Two Sums
+
+var twoSum = function(nums, target) {
+    for(var i=0;i<nums.length;i++){
+        for(var j = i+1;j<nums.length;j++){
+            if(nums[i]+nums[j] == target){
+                return [i,j]
+            }
+        }
+    }
+};
