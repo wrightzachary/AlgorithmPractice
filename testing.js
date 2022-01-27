@@ -126,3 +126,94 @@ var addTwoNumbers = function(l1, l2) {
     
     return result.next;
 };
+
+// LeetCode 3. Longest SubString Without Repeating Characters
+
+var lengthOfLongestSubstring = function(s) {
+    let max_len = 0;
+    let curr = 0;
+    let hash = {}; 
+    if(s.length < 2) {
+        return s.length;
+    }
+    for(let i = 0; i < s.length;  i++) {
+        if(hash[s[i]] == null) {
+            curr += 1;
+        } else {
+            curr = Math.min(i - hash[s[i]], curr + 1);
+        }
+        max_len = Math.max(max_len, curr);
+        hash[s[i]] = i; //save the index
+    }
+    return max_len;
+};
+
+// LeetCode 5. Longest Palindromic Substring
+
+var longestPalindrome = function(s) {
+    var start = 0;
+    var end = 0;
+    for (var i=0; i<s.length; i++) { 
+        var oddPalindrome = true;
+        var lenOdd = expandAroundCenter(s, i, i); 
+        var lenEven = expandAroundCenter(s, i, i+1); 
+        var lenMax = Math.max(lenOdd, lenEven); 
+        if (lenMax === lenEven) { 
+            oddPalindrome = false;
+        }
+        if (lenMax > (end - start+1)) {
+            if (oddPalindrome) { 
+                start = i - Math.floor(lenMax/2); 
+                end = i + Math.floor(lenMax/2); 
+            } else {
+                start = (i - (lenMax/2)) +1; 
+                end = (i+1 + (lenMax/2)) -1; 
+            }
+        }
+    }
+    return s.substring(start, end+1);
+}
+var expandAroundCenter = function(s, L, R) {
+    while (L >=0 && R < s.length && s[L] == s[R]) { 
+        L--;
+        R++;
+    }
+    R = R-1;
+    L = L+1;
+    return R - L + 1;
+}
+
+// LeetCode 6. Zigzag Conversion
+
+var convert = function(s, numRows){
+    var length = s.length;
+    if (numRows == 1) return s;
+    var cycleLen = numRows * 2 - 2;
+    var aZig = [];
+    for (var i = 0; i < numRows; i++){
+        for (var j = 0; j + i < length; j=j+cycleLen){
+            aZig.push(s.charAt(j + i));
+            if (i!=0 && i!=numRows -1 && j + cycleLen - i < length){
+                aZig.push(s.charAt(j + cycleLen - i));
+            }
+        }
+    }
+
+    return aZig.join("");
+};
+
+// LeetCode 9. Palidrome Number
+
+var isPalindrome = function(x) {
+    if(x < 0 || (x !== 0 && x % 10 == 0))
+        return false;
+
+    let reverse = 0;
+    
+    while (x > reverse) {
+        reverse = reverse * 10 + x % 10;
+        x = ~~(x/10);
+    }
+    
+    return x === reverse || x === ~~(reverse/10);
+};
