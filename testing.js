@@ -277,3 +277,29 @@ var longestCommonPrefix = function(strs) {
     }
     return longestCommonPrefix;
 };
+
+// LeetCode 20. Valid Parantheses
+
+var isValid = function(s) {
+    const leftSymbols = []
+    //loop for each character of the string
+    for (let i=0; i<s.length; i++){
+        // see if the sybmbol is encountered
+        if (s[i] === ')' || s[i] === '{' || s[i] === '[') {
+            leftSymbols.push(s[i]);
+        }
+        // If right symbol is encountered
+        else if (s[i] === ')' && leftSymbols.length !== 0 && leftSymbols[leftSymbols.length - 1] === '(') {
+            leftSymbols.pop();
+        } else if (s[i] === '}' && leftSymbols.length !== 0 && leftSymbols[leftSymbols.length - 1] === '{') {
+            leftSymbols.pop();
+        } else if (s[i] === ']' && leftSymbols.length !== 0 && leftSymbols[leftSymbols.length - 1] === '[') {
+            leftSymbols.pop();
+        }
+        // if no symbols is encountered
+        else {
+            return false;
+        }
+    }
+    return leftSymbols.length === 0;
+};
