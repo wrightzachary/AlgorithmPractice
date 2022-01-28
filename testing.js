@@ -215,5 +215,65 @@ var isPalindrome = function(x) {
         x = ~~(x/10);
     }
     
-    return x === reverse || x === ~~(reverse/10);
+    return x === reverse || x === ~~(revßerse/10);
+};
+
+// LeetCode 13. Roman to Ineger
+
+var romanToInt = function(s) {
+    // delcare map that'll store numerals
+    const romanMap = new Map();
+    // fill the map
+    romanMap.set('I', 1);
+    romanMap.set('V', 5);
+    romanMap.set('X', 10);
+    romanMap.set('L', 50);
+    romanMap.set('C', 100);
+    romanMap.set('D', 500);
+    romanMap.set('M', 1000);
+    // find the length of the string
+    const n = s.length;
+    //Variable to store result
+    let num = romanMap.get(s[n-1]);
+    // loop from right to left
+    for( let i=n-2; i>=0; i--){
+        // chech if character to right is larger or smaller
+        if (romanMap.get(s[i]) >= romanMap.get(s[i+1])){
+            num += romanMap.get(s[i]);
+        } 
+        else {
+            num -= romanMap.get(s[i]);
+        }
+    }
+    return num;
+};
+
+// LeetCode 14. Longest Common Prefix
+
+var longestCommonPrefix = function(strs) {
+    // delcare an empty string
+    let longestCommonPrefix = "";
+    //set base condition
+    if (strs == null || strs.length == 0){
+        return longestCommonPrefix;
+    }
+
+    // find minimum length string from array
+    let minimumLength = strs[0].length;
+    for (let i =1; i < strs.length; i++ ){
+        minimumLength = Math.min(minimumLength, strs[i].length);
+    }
+    // loop for minimum length 
+    for (let i=0; i<minimumLength; i++){
+        // get current character
+        let current = strs[0][i];
+        // check if this character is in all strings
+        for (let j = 0; j < strs.length; j++) {
+            if (strs[j][i] != current) {
+                return longestCommonPrefix;
+            }
+        }
+        longestCommonPrefix += current;
+    }
+    return longestCommonPrefix;
 };
